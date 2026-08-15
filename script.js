@@ -50,10 +50,19 @@ btnToggler.addEventListener("click", (e) => {
 let inputTitle = document.getElementById("title");
 let inputYear = document.getElementById("year");
 let btnSubmit = document.getElementById("submit");
+let formField = document.querySelector("fieldset");
+let errBox = document.querySelector("#errBox");
 btnSubmit.addEventListener("click", (e) => {
   let titl = inputTitle.value;
   let year = inputYear.value;
-  addBookToLibrary(titl, year);
-  loop(myLibrary);
-  e.preventDefault();
+  if (inputTitle.validity.valueMissing && inputYear.validity.valueMissing) {
+    errBox.textContent = "Fields can't be empty!";
+    errBox.style.color = "red";
+    e.preventDefault();
+  } else {
+    errBox.textContent = "";
+    addBookToLibrary(titl, year);
+    loop(myLibrary);
+    e.preventDefault();
+  }
 });
